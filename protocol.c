@@ -116,7 +116,7 @@ void protocol_execute_runtime()
     // System alarm. Everything has shutdown by something that has gone severely wrong. Report
     // the source of the error to the user. If critical, Grbl disables by entering an infinite
     // loop until system reset/abort.
-    if (rt_exec & (EXEC_ALARM | EXEC_CRIT_EVENT)) {      
+    if (rt_exec & (EXEC_ALARM | EXEC_CRIT_EVENT)) {
       sys.state = STATE_ALARM; // Set system alarm state
 
       // Critical event. Only hard limit qualifies. Update this as new critical events surface.
@@ -124,7 +124,7 @@ void protocol_execute_runtime()
         report_alarm_message(ALARM_HARD_LIMIT); 
         report_feedback_message(MESSAGE_CRITICAL_EVENT);
         bit_false(sys.execute,EXEC_RESET); // Disable any existing reset
-        do { 
+        do {
           // Nothing. Block EVERYTHING until user issues reset or power cycles. Hard limits
           // typically occur while unattended or not paying attention. Gives the user time
           // to do what is needed before resetting, like killing the incoming stream.
@@ -138,16 +138,16 @@ void protocol_execute_runtime()
         report_alarm_message(ALARM_ABORT_CYCLE);
       }
       bit_false(sys.execute,(EXEC_ALARM | EXEC_CRIT_EVENT));
-    } 
+    }
   
-    // Execute system abort. 
+    // Execute system abort.
     if (rt_exec & EXEC_RESET) {
       sys.abort = true;  // Only place this is set true.
       return; // Nothing else to do but exit.
     }
     
     // Execute and serial print status
-    if (rt_exec & EXEC_STATUS_REPORT) { 
+    if (rt_exec & EXEC_STATUS_REPORT) {
       report_realtime_status();
       bit_false(sys.execute,EXEC_STATUS_REPORT);
     }

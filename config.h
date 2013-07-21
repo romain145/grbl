@@ -100,6 +100,7 @@
 */
 
 // R2dev CNC LEDS
+#define LED_PERIOD 100
 #define LED_DDR   DDRC
 #define LED_PORT  PORTC
 #define LEDR	  3

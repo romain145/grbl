@@ -40,7 +40,9 @@
 #include "serial.h"
 
 // Declare system global variable structure
-system_t sys; 
+system_t sys;
+
+void process_LEDS(void);
 
 int main(void)
 {
@@ -94,12 +96,9 @@ int main(void)
       
       // Check for and report alarm state after a reset, error, or an initial power up.
       if (sys.state == STATE_ALARM) {
-    	LED_PORT |= (1<<LEDR) | (1<<LED1);
         report_feedback_message(MESSAGE_ALARM_LOCK); 
       } else {
         // All systems go. Set system to ready and execute startup script.
-    	LED_PORT &= ~(1<<LEDR);
-    	LED_PORT |= (1<<LED1);
         sys.state = STATE_IDLE;
         protocol_execute_startup(); 
       }
@@ -107,7 +106,30 @@ int main(void)
     
     protocol_execute_runtime();
     protocol_process(); // ... process the serial protocol
+    process_LEDS(); // blink some LEDs
     
   }
   return 0;   /* never reached */
+}
+
+void process_LEDS(void){
+	static int cptR=0, cpt1=0, cpt2=0, cpt3=0, cpt4=0;
+
+	// LEDR blinks when STATE_ALARM
+	if (sys.state == STATE_ALARM) {
+		if(++cptR>LED_PERIOD){
+			LED_PORT |= (1<<LEDR);
+			if(cptR>LED_PERIOD*2) cptR=0;
+		}
+	}else{
+		LED_PORT &= ~(1<<LEDR);
+	}
+
+	// LED4 always blinks
+	if(++cpt4>LED_PERIOD){
+		LED_PORT |= (1<<LED4);
+		if(cpt4>LED_PERIOD*2) cpt4=0;
+	}else{
+		LED_PORT &= ~(1<<LED4);
+	}
 }
