@@ -29,7 +29,7 @@
 #include "settings.h"
 #include "motion_control.h"
 #include "spindle_control.h"
-//#include "coolant_control.h"
+#include "coolant_control.h"
 #include "errno.h"
 #include "protocol.h"
 #include "report.h"

@@ -29,7 +29,7 @@
 #include "gcode.h"
 #include "motion_control.h"
 #include "spindle_control.h"
-//#include "coolant_control.h"
+#include "coolant_control.h"
 #include "nuts_bolts.h"
 #include "stepper.h"
 #include "planner.h"
