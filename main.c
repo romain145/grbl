@@ -92,9 +92,11 @@ int main(void)
       
       // Check for and report alarm state after a reset, error, or an initial power up.
       if (sys.state == STATE_ALARM) {
+    	LED_PORT |= (1<<LEDR) | (1<<LED1);
         report_feedback_message(MESSAGE_ALARM_LOCK); 
       } else {
         // All systems go. Set system to ready and execute startup script.
+    	LED_PORT |= (1<<LED1);
         sys.state = STATE_IDLE;
         protocol_execute_startup(); 
       }

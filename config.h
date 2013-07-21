@@ -28,7 +28,7 @@
 #define DEFAULTS_GENERIC
 
 // Serial baud rate
-#define BAUD_RATE 9600
+#define BAUD_RATE 38400
 
 // Define pin-assignments
 // NOTE: All step bit and direction pins must be on the same port.
@@ -65,13 +65,16 @@
 #define SPINDLE_ENABLE_PORT  PORTB
 #define SPINDLE_ENABLE_BIT   4  // Uno Digital Pin 12
 
+// UNUSED on R2dev CNC
 #define SPINDLE_DIRECTION_DDR   DDRB
 #define SPINDLE_DIRECTION_PORT  PORTB
 #define SPINDLE_DIRECTION_BIT   5  // Uno Digital Pin 13 (NOTE: D13 can't be pulled-high input due to LED.)
 
+/* USED AS RED LED on R2dev CNC
 #define COOLANT_FLOOD_DDR   DDRC
 #define COOLANT_FLOOD_PORT  PORTC
 #define COOLANT_FLOOD_BIT   3  // Uno Analog Pin 3
+*/
 
 // NOTE: Uno analog pins 4 and 5 are reserved for an i2c interface, and may be installed at
 // a later date if flash and memory space allows.
@@ -82,6 +85,7 @@
   #define COOLANT_MIST_BIT   4 // Uno Analog Pin 4
 #endif  
 
+/* UNUSED on R2dev CNC
 // NOTE: All pinouts pins must be on the same port
 #define PINOUT_DDR       DDRC
 #define PINOUT_PIN       PINC
@@ -93,6 +97,17 @@
 #define PINOUT_INT_vect  PCINT1_vect
 #define PINOUT_PCMSK     PCMSK1 // Pin change interrupt register
 #define PINOUT_MASK ((1<<PIN_RESET)|(1<<PIN_FEED_HOLD)|(1<<PIN_CYCLE_START))
+*/
+
+// R2dev CNC LEDS
+#define LED_DDR   DDRC
+#define LED_PORT  PORTC
+#define LEDR	  3
+#define LED1	  4
+#define LED2	  5
+#define LED3	  6
+#define LED4	  7
+#define LED_MASK ((1<<LEDR)|(1<<LED1)|(1<<LED2)|(1<<LED3)|(1<<LED4))
 
 // Define runtime command special characters. These characters are 'picked-off' directly from the
 // serial read data stream and are not passed to the grbl line execution parser. Select characters

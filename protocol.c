@@ -49,10 +49,16 @@ void protocol_init()
   protocol_reset_line_buffer();
   report_init_message(); // Welcome message   
   
+/* USUSED on R2dev CNC
   PINOUT_DDR &= ~(PINOUT_MASK); // Set as input pins
   PINOUT_PORT |= PINOUT_MASK; // Enable internal pull-up resistors. Normal high operation.
   PINOUT_PCMSK |= PINOUT_MASK;   // Enable specific pins of the Pin Change Interrupt
   PCICR |= (1 << PINOUT_INT);   // Enable Pin Change Interrupt
+*/
+
+  LED_DDR |= LED_MASK; // Set as output pins
+  LED_PORT &= ~(LED_MASK); // Set all LEDs off
+
 }
 
 // Executes user startup script, if stored.
@@ -71,6 +77,7 @@ void protocol_execute_startup()
   }  
 }
 
+/* UNUSED on R2dev CNC
 // Pin change interrupt for pin-out commands, i.e. cycle start, feed hold, and reset. Sets
 // only the runtime command execute variable to have the main program execute these when 
 // its ready. This works exactly like the character-based runtime commands when picked off
@@ -88,6 +95,7 @@ ISR(PINOUT_INT_vect)
     }
   }
 }
+*/
 
 // Executes run-time commands, when required. This is called from various check points in the main
 // program, primarily where there may be a while loop waiting for a buffer to clear space or any
@@ -294,6 +302,7 @@ void protocol_process()
 {
   uint8_t c;
   while((c = serial_read()) != SERIAL_NO_DATA) {
+	LED_PORT |= (1<<LED2);
     if ((c == '\n') || (c == '\r')) { // End of line reached
 
       // Runtime command check point before executing line. Prevent any furthur line executions.
@@ -338,4 +347,5 @@ void protocol_process()
       }
     }
   }
+  LED_PORT &= ~(1<<LED2);
 }
