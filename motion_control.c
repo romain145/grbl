@@ -29,7 +29,7 @@
 #include "gcode.h"
 #include "motion_control.h"
 #include "spindle_control.h"
-#include "coolant_control.h"
+//#include "coolant_control.h"
 #include "nuts_bolts.h"
 #include "stepper.h"
 #include "planner.h"
@@ -272,7 +272,7 @@ void mc_reset()
 
     // Kill spindle and coolant.   
     spindle_stop();
-    coolant_stop();
+    //coolant_stop();
 
     // Kill steppers only if in any motion state, i.e. cycle, feed hold, homing, or jogging
     // NOTE: If steppers are kept enabled via the step idle delay setting, this also keeps

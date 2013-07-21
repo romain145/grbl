@@ -66,7 +66,9 @@ int main(void)
       gc_init(); // Set g-code parser to default state
       protocol_init(); // Clear incoming line data and execute startup lines
       spindle_init();
-      coolant_init();
+
+      // UNUSED on R2dev CNC
+      //coolant_init();
       limits_init();
       st_reset(); // Clear stepper subsystem variables.
 

@@ -29,7 +29,7 @@
 #include "settings.h"
 #include "motion_control.h"
 #include "spindle_control.h"
-#include "coolant_control.h"
+//#include "coolant_control.h"
 #include "errno.h"
 #include "protocol.h"
 #include "report.h"
@@ -258,7 +258,7 @@ uint8_t gc_execute_line(char *line)
     spindle_run(gc.spindle_direction);
   
     // [*M7,M8,M9]: Update coolant state
-    coolant_run(gc.coolant_mode);
+    //coolant_run(gc.coolant_mode);
   }
   
   // [G54,G55,...,G59]: Coordinate system selection
