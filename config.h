@@ -25,7 +25,7 @@
 // IMPORTANT: Any changes here requires a full re-compiling of the source code to propagate them.
 
 // Default settings. Used when resetting EEPROM. Change to desired name in defaults.h
-#define DEFAULTS_GENERIC
+#define DEFAULTS_SHAPEOKO
 
 // Serial baud rate
 #define BAUD_RATE 38400
