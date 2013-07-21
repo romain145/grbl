@@ -98,6 +98,7 @@ int main(void)
         report_feedback_message(MESSAGE_ALARM_LOCK); 
       } else {
         // All systems go. Set system to ready and execute startup script.
+    	LED_PORT &= ~(1<<LEDR);
     	LED_PORT |= (1<<LED1);
         sys.state = STATE_IDLE;
         protocol_execute_startup(); 
