@@ -30,7 +30,7 @@
 
 DEVICE     ?= atmega644p
 CLOCK      = 16000000
-PROGRAMMER ?= -c avrisp2 -P usb
+PROGRAMMER ?= -c stk500v2 -P /dev/ttyUSB0 -b 38400 -D
 OBJECTS    =	main.o \
 				motion_control.o \
 				gcode.o \
@@ -78,14 +78,17 @@ all:	grbl.hex
 .c.s:
 	$(COMPILE) -S $< -o $@
 
-flash:	all
-	$(AVRDUDE) -U flash:w:grbl.hex:i
+#flash:	all
+#	$(AVRDUDE) -U flash:w:grbl.hex:i
 
-fuse:
-	$(AVRDUDE) $(FUSES)
+#fuse:
+#	$(AVRDUDE) $(FUSES)
 
 # Xcode uses the Makefile targets "", "clean" and "install"
-install: flash fuse
+#install: flash fuse
+
+install:
+	$(AVRDUDE) -U flash:w:grbl.hex:i
 
 # if you use a bootloader, change the command below appropriately:
 load: all
